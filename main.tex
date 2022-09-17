@@ -1,6 +1,7 @@
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \documentclass[fontsize=12pt,twoside=semi,openright,numbers=noenddot,parskip=half]{scrbook}
 \usepackage{scrhack}\usepackage{mhotext}\usepackage{geometry, graphicx, adjustbox, wrapfig, mathtools, booktabs, siunitx, setspace, subcaption, booktabs,multicol,dirtree,notoccite,xcolor,pifont}\usepackage[T1]{fontenc}\usepackage[UKenglish]{babel}\usepackage{gentium}
+\usepackage{biblatex}[sorting=none,backend=bibtex,style=apa,citestyle=numeric-comp]
 \graphicspath{{\string~/Documents/assets/}}\onehalfspacing
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \title{The Tale of a Bacteria Battle}
@@ -31,13 +32,13 @@ But most importantly, I'd like to thank Núria Feliu, Imma Garcia and the rest o
 \chapter{Abstract}
 \paragraph{}Insert abstract here
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
-\mainmatter\tableofcontents
+\mainmatter\printindex\tableofcontents
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 % > > > Introduction
 \include{chapters/chapter01}
 % > > > Experimental, round 1
 \include{chapters/chapter02}
-% > > > Figure & Image Elements
+% > > > Experimental, round 2
 %\include{chapters/chapter03}
 % > > > Theorem Environments
 %\include{chapters/chapter04}

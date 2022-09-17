@@ -1,285 +1,36 @@
-%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- CHAPTER 03
-\chapter{Images, Figures \& Tables}
-
-%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SECTION
-\section{Storing Images}
-
-Images can be easily included in your document by using the \cs{includegraphics}
-command included with the graphics package. Before we include our first image, we 
-should probably create a folder to hold all our images to keep our folder 
-lean in terms of the number of files.  My personal preference is to keep all my 
-images in the folder called \verb!~/assets!, which is relative to where the 
-main file is located - the root of the project folder. If you are looking for 
-a more refined organization of your images, then it is also possible to 
-populate your assets folder with subfolders.
-
-When we reference an image file, we need to provide both the path and file name.
-Fortunately, there is a way to assign the path(s) where you store your images,
-so you do not have to include the path to each image.  This can be done by 
-including the \cs{graphicspath} command in the preamble of the script to assign
-the path of where your images are stored.
-\begin{dispListing}
-\graphicspath{{/assets/}}
-\end{dispListing}
-It is also possible to define more than one path, which you might want to do 
-if you are using subfolders to organize your images.  Just be careful to 
-ensure all your images have unique names if you do decide to store your 
-images in multiple folders.
-\begin{dispListing}
-\graphicspath{{/assets/images}{/assets/pdfs/}{/assets/matplotlib/}{/assets/tikz/}}
-\end{dispListing}
-This command will save you a lot of typing and frustration, so I would 
-encourage you to try it.
-
-%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SECTION
-\section{Images}
-
-To include an image into our document, we will use the \cs{includegraphics} 
-command, which accepts the path and file name as its argument and can take 
-on multiple options.  If you made use of the \cs{graphicspath} command made 
-available by default for this template, then the argument is simplify the file 
-name.  The file extension is optional, unless you have multiple files with the 
-same name, but with different extensions. Yes, \verb!foo.pdf! are valid 
-image files to include into your document. 
-\begin{dispListing}
-    \includegraphics{myimage.jpg}
-    \includegraphics{myimage.pdf}
-\end{dispListing}
-The option that I set most often when using the \cs{includegraphics}
-command is the width of the image.  For example, let's say that I want to 
-include an image called \verb!image.pdf! into my document such that it is 
-centered on the page and that the width of the image is set to a quarter of 
-the text width of the page. 
-\begin{dispExample}
-\begin{center}
-\includegraphics[width=0.25\textwidth]{image}
-\end{center}
-\end{dispExample}
-Just be careful when working with raster images such as \verb!foo.jpg! as 
-these types of images do not scale well.  I try to ensure that all my images 
-are vector based such as a \verb!foo.pdf!, which allows for beautiful scaling.
-
-% TODO Include height scale
-% TODO Include scale
-% TODO Include rotate 
-
-%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SECTION
-\section{Figures}
-
-The \XeLaTeX\ engine is typesetting the document for us and placing images on 
-the page is part of that process.  An inherent problem with images is that they 
-cannot be broken across two pages like a paragraph of text.  A common
-solution is to create a page break each time you have an image that spans over 
-two pages.  Let's leave the typesetting to the engine because let's face it,
-if you have many images that are spanning two pages, your document is not going 
-to look good with all that extra whitespace created by forcing those page breaks.
-The solution is a floating environment called a figure to embed your image. 
-
-A float works by moving the image that does not fit on the page to a later one
-and fill up the white space of the current page with text.  It is time to 
-let go of implicitly referencing images by their placement of the document. 
-We should now be referencing our images and let the engine calculate the best placement
-of all our floats within our document.  It might feel better knowing that 
-you can give your image a caption to provide some context as it might no 
-longer be related to the surrounding text.  Just be ready for the engine to
-never place the float where you would have placed it.
-
-\begin{docEnvironment*}[doclang/environment content=includegraphics here]{figure}{\oarg{!htbp}}{}
-\end{docEnvironment*}
-
-You can see that the figure environment includes some optional arguments, called 
-placement specifiers\cite{CTANPackageLshort}, that give you some control over where
-the engine will place the float. The order in which the placement specifiers
-are written is the priority the engine will give to placing your float within your 
-documentation.  If no placement identifiers are given, then it will default to \oarg{tbp}. 
-See table \cref{tbl:placementspecifiers} for a summary which each optional
-argument does.
-\begin{table}
-\begin{tblr}{c X[l]}
-\hline
-\oarg{h} & Places the float \textbf{here} relative to the text you have written.
-This should only be used for small floats. \\
-\oarg{t} & Place the float at the \textbf{top} of the next available page.\\
-\oarg{b} & Place the float at the \textbf{bottom} of the next available page. \\
-\oarg{p} & Place on a \textbf{page} only containing floats. \\
-\oarg{!} & Force one of the above options even if it does not look good.\\
-\hline
-\end{tblr}
-\label{tbl:placementspecifiers}
-\caption{Float Placement Specifiers}
-\end{table}
-You will probably want to reference your image at some point in your text and
-will most likely want to give it a caption.  For this we are going to
-use the figure environment, which will calculate the best position to place 
-your image within the document.  Don't worry, there are ways to manually place 
-the image where you would like it to appear.
-\begin{docEnvironment}[doclang/environment content=image content goes here]{figure}{\oarg{h, t}}{}
-    \begin{dispListing}
-        \begin{center}
-        \includegraphics[width = 0.25\textwidth]{image.jpg}
-        \end{center}
-        \caption{Here is my excellent image.}
-        \label{fig:img002}
-        \end{dispListing}
-\end{docEnvironment}
-\begin{figure}[h]
-    \begin{center}
-    \includegraphics[width = 0.5\textwidth]{image.jpg}
-    \end{center}
-    \caption{Here is my excellent image.}
-    \label{fig:img001}
-\end{figure}
-This would generate figure \ref{fig:img001}.
-
-%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SECTION
-\section{Multiple Horizontally Aligned Images}
-
-Quite often it is the case that we want to include multiple horizontally
-aligned images.  The figure environment is not well equipped for this task, so
-we care going to make use of the subfigure package which will give us the 
-subfigure environment that we can embed in our figure environment.  This will
-enable us to assign both a caption and a label to each image separately.
-\begin{docEnvironment}[doclang/environment content=image content goes here]{subfigure}{}{}
-\begin{dispListing}
-\begin{figure}
-    \begin{center}
-    \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{20170509-123642}
-        \caption{Step 1}
-        \label{fig:step1a}
-    \end{subfigure}
-    ~   % > > > Add desired spacing between images, e. g. ~, \quad, \qquad,
-                % \hfill etc. (or a blank line to force the subfigure onto
-                % a new line)
-    \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{20170509-123642.png}
-        \caption{Step 2}
-        \label{fig:step2a}
-    \end{subfigure}
-    ~   % > > > Add desired spacing between images, e. g. ~, \quad, \qquad,
-                % \hfill etc. (or a blank line to force the subfigure onto
-                % a new line)
-    \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{20170509-123642.png}
-        \caption{Step 3}
-        \label{fig:step3a}
-    \end{subfigure}
-    \caption{The Steps Shown}\label{fig:threestepsa}
-    \end{center}
-\end{figure}
-\end{dispListing}
-\end{docEnvironment}
-\begin{figure}
-    \begin{center}
-    \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{20170509-123642}
-        \caption{Step 1}
-        \label{fig:step1}
-    \end{subfigure}
-    ~   % > > > Add desired spacing between images, e. g. ~, \quad, \qquad,
-                % \hfill etc. (or a blank line to force the subfigure onto
-                % a new line)
-    \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{20170509-123642.png}
-        \caption{Step 2}
-        \label{fig:step2}
-    \end{subfigure}
-    ~   % > > > Add desired spacing between images, e. g. ~, \quad, \qquad,
-                % \hfill etc. (or a blank line to force the subfigure onto
-                % a new line)
-    \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{20170509-123642.png}
-        \caption{Step 3}
-        \label{fig:step3}
-    \end{subfigure}
-    \caption{The Steps Shown}\label{fig:threesteps}
-    \end{center}
-\end{figure}
-
-%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SECTION
-\section{Tables}
-
-It is very likely that you will want to include tables in your document.  
-Tables are not always easy to generate using \LaTeX ; however the tabularray 
-package makes formatting tables a little easier then some of the more 
-popular table packages such as tabularx.  Tabularray is well documented and
-supports tables in both text and math modes.  The package and custom styles 
-used for tables are included in the mhotables.sty custom package.  This makes 
-it easy for you to use your favorite tables package by only having to modify
-one line of code in the mhotext.sty.  Of course, by doing so this documentation 
-document will no longer compile as it is dependent on mhotables.sty.
-
-\begin{dispListing}
-%\RequirePackage{mhotables.sty}
-\RequirePackage{tabularx}
-\end{dispListing}
-
-The table itself is placed in a table environment, which will allow the 
-\XeLaTeX\ engine to calculate the best place for the table within your
-document very much the same way the figure environment works.  It will
-also enable to give your table a descriptive label using the \cs{caption}
-command and give it a label so that you can reference it in your document. 
-I usually propend tbl: to my table captions to make them easier to look up.
-
-\begin{dispListing}
-\begin{table}
-    \begin{center}
-    \begin{tblr}
-    % Code to format the table
-    \end{tblr}
-\end{center}
-\label{tbl:myfirsttable}
-\caption{This table will be included in the document soon.}
-\end{table}
-\end{dispListing}
-
-\begin{dispExample}
-\begin{center}
-\(\begin{tblr}[ 
-    caption = {These display fractions look awesome out of the box!},
-    label = {tblr:fractions}
-]{rrr}
-\hline
-\dfrac{2}{3} &  \dfrac{2}{3} &  \dfrac{1}{3} \\
-\dfrac{2}{3} & -\dfrac{1}{3} & -\dfrac{2}{3} \\
-\dfrac{1}{3} & -\dfrac{2}{3} &  \dfrac{2}{3} \\
-\hline
-\end{tblr} \)
-\end{center}
-\end{dispExample}
-
-Another example in math mode, would be to make use of the \cs{diagbox}
-command which has been enabled by including \cs{UseTblrLibrary{diagbox}}
-in the preamble of the style file.  Don't worry this is included by 
-default.
-
-\begin{dispExample}
-    \begin{center}
-    \(\begin{tblr}{|c||c|c|c|c|c|c||}
-    \hline
-    \diagbox{f(x)}{x}   &   0   &   1   &   2   &   3   &   4   &   5\\
-    \hline
-    x^2                 &   0   &   \SetCell{bg=nordEleven,fg=nordFour} \smile  &   3   &   9   &   16  &   25 \\
-    \hline
-    \end{tblr} \)
-    \end{center}
-    \end{dispExample}
-
-\begin{table}
-    \caption{hello world}
-    \begin{center}
-    \(\begin{tblr}{|c||c|c|c|c|c|c|}
-    \hline
-    \diagbox{f(x)}{x}   &   \cpoint   &   \interval   &   2   &   3   &   4   &   5\\
-    \hline
-    x^2                 &   \cellTeal \checkcirc   &  \cellRed \decf &   \cellGrey \stationary  &   \cellGreen \incf   &   \cellTeal +  &   \cellOrange - \\
-    \hline
-    \end{tblr} \)
-    \end{center}
-\end{table}
-
-
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "../main"
-%%% End:
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
+\chapter{Introduction}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
+\section{Bacteria and bacterial infections}
+\paragraph{Bacteria} are prokaryote organisms, generally single-celled, which are part of the Monera animal kingdom. Their sizes range from between \SI{30}{\micro\metre} and \SI{100}{\micro\metre} and are ubiquitous\footnote{Ubiquitous: found everywhere} organisms. This form of life is believed to be the first one to have ever appeared on Earth, as well as the one responsible for the oxigen-rich atmosphere the Earth currently has. Some species are hard to culture in a laboratory environment, but generally, those that can be cultured in a controlled environment are grown in agar plates\cite{murrayMicrobiologiaMedica2013}. \newline
+Agar is used as a place to grow bacteria due to the fact that it is indigestible for the majority of bacteria, yet it keeps them humid and, together with growth mediums, such as Lysogeny Broth, bacteria thrive in this environment, allowing them to proliferate and create colonies, which can be seen to the naked eye. Sometimes, together with the growth medium, additives such as mannitol salt are added. These are used to improve or impede bacterial growth, modify their conditions so they develop differently or as an identification tool. For example, \emph{Staphyloccus Aureus} ferments it, producing acid, which in turn decolorates the plate from red to yellow\cite{gamazoManualPracticoMicrobiologia2010}.
+\paragraph{Pathogenic bacteria} are bacteria that have the ability to cause disease\footnote{''A disease is a particular abnormal condition that negatively affects the structure or function of all or part of an organism, and that is not immediately due to any external injury.''\cite{dorlands:001}}. These are not the most common type of bacteria, as the majority of them are either harmless or benefitial to the human body through symbiosis, such as the bacteria that help with digestion in the stomach\footnote{citation needed}.
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
+\section{The enemy: Staphylococcus aureus}
+\paragraph{}\emph{Staphylococcus aureus} (also known as Staph) is a GRAM-positive bacteria, the most virulent and studied of its genus\footnote{citation needed, got to check the proper terminology}. Some of its distinctive characteristics include having a very thick glycopeptide wall, which allows it to withstand extreme temperatures and osmotic pressures, therefore rendering most classic methods of food conservation (such as cooking, smoking, freezing or salting\footnote{citation needed}) completely useless against said bacteria;  a protein A capsid, which binds to many eukaryote organism. It's an extremely resistant (and thus ubiquitous) bacteria. It can be found in human skin and mucotic surfaces (such as the mouth or the nose), as well as in certain foods such as ham (cooked or curated), eggs, raw and cooked dough, as well as in poultry.
+\newline\begin{wrapfigure}{r}{0.5\textwidth}\begin{center}\includegraphics[width=0.48\textwidth]{staph_parts.png}\end{center}\caption{Parts of Staphylococcus aureus. Source: PLoS Pathogens}\end{wrapfigure}\paragraph{}Staphylococcus Aureus has three main parts to its virulence: its cell wall, its membrane-bound factors and its secreted factors. Staph's \textbf{cell wall} is made up of three parts, going from inside to the outside of the cell: a plasma membrane, a peptidoglycan layer and a slime (sometimes also called capsule) layer.\restoregeometry %source: https://www.genome.gov/genetics-glossary/Plasma-Membrane%
+The plasma membrane consists of a lipid bilayer that is semipermeable\footnote{Semipermeable: it lets water and ions through, but not other molecules. This transport will always be in favour of the pressure gradient, which means that it cannot insert any kind of substance into an environment that has a higher pressure than the other side}, which regulates the transport of materials entering and exiting the cell. Integrated inside them are a type of integral protein called penicillin-binding protein (PBP), amongst other  proteins such as protein channels. We will only talk about PBPs because they are the Achilles's Heel of bacteria, as long as you know how to exploit it. Whilst the name implies PBPs are only sensible to penicillin, the name actually comes because that's how they were discovered, and in fact could be resistant to it but sensible to other antibiotic agents. Variations in this protein may lead in some cases to antibiotic resistance, such as MRSA (\emph{Methicillin-Resistant Staphylococcus Aureus}), a variation of Staph that is the result of a variation in this protein called PBP2A. The different variations of \emph{Staphylococcus Aureus} will be discussed in more detail in a following section. \newline
+\emph{Staphylococcus aureus}, like all other members of the \emph{Staphylococcus} family, have very thick peptidoglycan layers. This grants them protection from extreme temperatures and high osmotic pressures, which means these bacteria can colonise cooked food and food that has been salted. The most notable example is ham, either cooked, smoked or cured.
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
+\section{The enemy's attacks}
+\paragraph{}\emph{Staphylococcus Aureus} is a species that can cause a handful of different diseases, ranging from, most frequently, skin and respiratory tract infections to infective endocarditis, toxic shock syndrome or osteomyelitis. Several variations of this pathogen exist, with increasing levels of antibiotic resistance: MSSA (\emph{Methicillin-Sensitive Staphylococcus Aureus}), having no resistance; MRSA (\emph{Methicillin-Resistant Staphylococcus Aureus}); and VRSA (\emph{Vancomycin-Resistant \emph{Staphylococcus Aureus}}), the latterthe latter for which no antibiotic concoction that can erradicate the infection is known, and the patients have to use experimental treatments. VISA (Vancomycin-intermediate \emph{Staphylococcus Aureus}) is a variation that has medium resistance to vancomycin, being an intermediate step between MRSA and VRSA. VISA and VRSA are what we would call a superbug, a microbe that has developed resistance to more quantity of antibiotic than is safe to consume. Studies have discovered that this genetic factor has been developed by different lineages separetely, indicating that there is not a common ancestor of MRSA strains. This case is the bacteria equivalent of carcinisation, the discovery that several species have coevolved into crabs; as well as the bacteria equivalent of tree leaves, which were developed independently by several species at the same time, in completely different parts of the world. 
+\paragraph{}One of Staph's most notorious abilities is using the body's own proteins to disguise itself and thus avoid detection and phagocytosis by the host's immune system. It accomplishes this task by using enzymes called coagulases, which enable the transformation of fibrinogen \footnote{A glycoproteic complex produced in the liver and present in the blood of all vertebrates.} to fibrin \footnote{fibrinogen after being stimulated by either thrombin or \emph{staphylothrombin}, the result of a molecular pathway stimulated by coagulase. It helps in clotting the blood in the event of vascular or tissue injury}[source: microbiology medical]. Only 11 other \emph{Staphylococcus} family members are coagulase-positive. To test for this enzyme in the laboratory there are two main methods which are usually combined: culture of the sample on a Baird-Parker agar medium, a selective and differential medium which contains lithium chloride and tellurite as to inhibit the growth of other microbes. It also includes pyruvate and glycine, which promote the growth of \emph{Staphylococci} colonies, showing in colour black and with an opaque zone around the colony. This opaque zone represents the effect of the coagulase. Another way to test for coagulase is to perform a coagulase test. This test generally requires a small quantity (generally 2 mL) of sheep blood serum, which will gelatinise if coagulase is present.
+\paragraph{}\emph{Staphylococcus Aureus} contains an important quantity of \textbf{toxins}. which grants it most of its pathogenicity. Many of its virulence factors can be described as such. Toxins are usually defined as poisonous substances, which, in our case, means that they have the capacity to mess with the host body directly, without need of a mediating entity. This category doesn't include, for example, those molecules intended to combat the host's defence mechanisms or scavenge reactive oxygen. We'll also exclude those situated on its membrane for the purpose of cell binding. Staph has several kinds of toxin in its arsenal: membrane-damaging toxins (which can be receptor-mediated or not), receptor-interfering toxins (not membrane-damaging), enzymes, and pathway blockers.\newline
+\begin{itemize}
+\item[$\bullet$] Membrane-damaging toxins. Several of \emph{Staphylococcus aureus}' toxins target the cytoplasmic membrane of the host's cells. These lead to pore formation in it, which provokes the outflux of vital molecules of the cell which, in turn, leads to cytolysis\footnote{Cell bursting due to osmotic pressure imbalance between the inside and the outside of it}.
+   \begin{itemize}
+        \item Receptor-mediated. Many of the cytolytic toxins of \emph{Staphylococcus aureus} have been shown to require receptor interaction for their lytic activity. The best-known toxin of this kind is Alpha-toxin, also known as Alpha-hemolysin, which is its major cytotoxic agent, and is lytic to red blood cells and certain leukocytes, but not to neutrophils. Whilst at low concentrations it has been shown to be dependent on the interaction with cells' ADAM10 receptors, in higher concentrations of this toxin, this interaction is no longer necessary. Other toxins of this type include  PVL (Panton-Valentine Leucocidin) and Gamma-toxin.
+        \item Non-receptor-mediated. In 2007, a toxin family that includes the Delta-toxin called the Phenol-Soluble Modulins (PSMs). PSMs trigger an inflamatory response by interacting with the FPR2 receptor, however they can carry cytolytic activity independently from FPR2 interaction. Delta-toxin has been linked to allergic skin sease and atopic dermatitis by degrading mast cells. This kind of toxin contributes to neutrophil lysis after phagocytosis, which might partly explain why the development of \emph{Staphylococcus Aureus} vaccines that work by enhancing a type of phagocytosis have failed so far. 
+   \end{itemize}
+\item[$\bullet$] Receptor-function-interfering toxins. The toxins that fall into this category are enterotoxins\footnote{Enterotoxins are those toxins that target the intestines.} These typically cause vomit and diarrhoea. \emph{S. aureus} strains can produce a wide array (around 20) of entero and entero-like toxins. The most famous \emph{Aureus} superantigen\footnote{Superantigen: type of antigens that results in excessive activation by the immune system}, the 22-kD toxic shock syndrome toxin (TSST), belongs to this group. TSS is a very severe and potentially fatal disease. \emph{Staphylococcus aureus} also secretes a series of proteins that interfere with leukocyte receptors to evade recognition and thus activation of the immune system. CHIPS (Chemotaxis Inhibitory Protein of \emph{Staphylococcus aureus}), which binds to the C5aR and FPR receptors, impairing the recognition of bacterial formylated peptides by the FPR receiver and blocking the activation of leukocytes via C5aR. \emph{S. aureus} also has other proteins that work similarly to these, such as FLIPr.
+\item[$\bullet$] Enzymes. Many enzymes secreted by \emph{Staphylococcus Aureus} either degrade host molecules or interfere with its metabolic or signalling cascades. A few of them are proteases, which some non-specific ones have the ability to degrade host proteins in a broad proteins, leading to tissue destruction and necrosis, but may also have some more specific effects, for example the destruction of insulin B. Its two coagulases (staphylocoagulase and Willebrand factor) fall into this category.
+\end{itemize}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
+\section{Our weapons}
+\paragraph{} The tools we have at our disposal to fight off this infection fall into two main categories: chemical factors and biological factors.
+\paragraph{} The chemical factors are drugs, and they depend both in quantity and type on the variation a particular case falls in. It is \textbf{extremely important} to find out the level of antibiotic resistance that specific infection has before administering any antibiotic, as this treatment course will cause side effects such as killing gut bacteria, diminishing defense system capabilities, and increasing the possibility to develop yet more resistant infections. Generally, a large-spectrum antibiotic has an adequate risk-to-benefits ratio of causing the latter, so they may be used before switching to a more specific treatment. \newpage
+\paragraph{}\begin{wrapfigure}{r}{0.35\textwidth}\begin{center}\includegraphics[width=0.30\textwidth]{assets/beta-lactam.png}\end{center}\caption{Organic chemistry structure of penicillin (top) and cephalosporin (bottom). β-lactam ring in red. Source: WikiMedia}\vspace{-0.30\linewidth}\end{wrapfigure}Starting with the treatment to the least resistant strains of \emph{Staphylococcus Aureus}, a β-lactam antibiotic (such as methicillin, oxacillin, cloxacillin and penicillin) is the weapon of choice to fight against an MSSA infection. This is because this specific chemical part (just a \beta-lactam ring does nothing by itself) has the ability to inhibit cell wall biosynthesis on the bacterial intruder's body. But once the β-lactam ring is cut by an enzyme secreted by the bacteria itself, this type of antibiotic suddenly loses effect against them.
+\paragraph{}That's where Vancomycin comes in. It is a type of glycopeptide antibiotic, just like \beta-lactam and works by blocking the construction of a cell wall, as all of its type do. This treatment is extremely invasive and only indicated for the treatment of extremely serious life-threatening infections by Gram-positive bacteria that have shown to be unresponsive to other antibiotics.\begin{wrapfigure}{l}{0.35\textwidth}\begin{center}\includegraphics[width=0.30\textwidth]{assets/vancomycin.png}\end{center}\caption{Organic chemistry structure of vancomycin. Source: WikiMedia}\vspace{0.15\linewidth}\end{wrapfigure}\newline It can be taken as a pill or as an injectable fluid, which proves it to be much more effective. This treatment is incompatible with aminoglycosides, a type of antibiotic that inhibit protein synthesis, as it can lead to nephrotoxicity\footnote{Nephrotoxicity: damage to the kidneys} and ototoxicity\footnote{Ototoxicity: damage to hearing}. Vancomycin can induce platelet-reactive antibodies in the patient, leading to severe thrombocytopenia and bleeding with petechial hemorrhages on the tongue and bruises. Unfortunately, even with use of Vancomycin, Staphylococcus Aureus can develop resistance. In this case, no other option than using a biological factor is left. There has been one study in 2020 that discovered that by modifying the bacteria with a cationic oligopeptide\footnote{Cationic oligopeptide: sequence of two or more aminoacids that is positively charged}, vancomycine resistance could be bypassed. This could be a good solution temporarily as we wait for phage therapy to get approved, if it was a sufficiently studied option, which is not. This was discovered in 2020, while bacteriophage trials have been ongoing since the mid 2000s.
+\paragraph{}The biological factor is a bacteriophage, called P68. It comes from the \emph{Caudovirales} order, which means that it is a bacteriophage with tail.  This treatment is still in testing, but it appears to be effective and lead to low adverse results. If possible, it would be preferrable to use bacteriophage therapy (shortened to phage therapy) instead of going for antibiotics, as can lead to less side effects than antibiotics, as it only attacks a specific bacteria. This means, unfortunately, that the infection has to be pinpointed with extreme accuracy. The use of this treatment also negates the risk of bacteria developing antibiotic resistance. It is, however, unclear whether the bacteriophage could mutate into a dangerous strain. This class of virii has been studied since the late 19th century after being discovered by accident in water from a river in India. This research, however, was dropped due to penicillin being discovered and put into effect, as the main purpose of this research was to use it on war casualties as to reduce mortality due to infections.\begin{wrapfigure}{c}{0.35\textwidth}\begin{center}\includegraphics[width=0.30\textwidth]{assets/staph_side.png}\end{center}\caption{P68 structure. Source: Own material}\end{wrapfigure}.
+\paragraph{}Bacteriophages work in an interesting manner. They work by detecting one very specific bacteria, just like any other virus does with the type of cell they evolved for, then bind to it and inject their genetic material, which then in turn the bacteria considers as its own, inserts it into its own genetic sequence and starts producing the proteins the virus requires, but it doesn't eject them. Once the bacteria is full with phages, a special lytic compound is released which bursts the cell membrane in such a way that it resembles an explosion, but instead of heating up everything in a radius, spreads millions more of bacteriophages, which then bind to other bacteria and the cycle repeats until there's no more bacteria left. The fight from the bacteria point of view consists mostly on trying to outnumber and outreproduce the phages as to have a chace of survival, even if minimal. There is no known bacteria that shows resistance to phages. That is probably because unlike the chemical factors, phages can evolve and improve with each generation.
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
