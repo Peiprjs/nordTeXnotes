@@ -49,12 +49,14 @@ But most importantly, I'd like to thank Núria Feliu, Imma Garcia and the rest o
 % > > > What is LaTeX
 %\include{chapters/chapter06}
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
-\backmatter\renewcommand{\thepage}{\roman{page}}\setcounter{page}{0}
+\backmatter\renewcommand{\thepage}{\Roman{page}}\setcounter{page}{0}
 
 \clearpage
 \printbibliography[title={References}]
 \cleardoublepage\part{Appendix}\appendix
 \chapter{Annex 1 - Protocol as published in protocols.io}
 \includepdf[pages=-]{protocol.pdf}
+\clearpage\appendix\chapter{Annex 2 - Raw data table (data anonimised)}
+\includepdf[pages=-]{data.pdf}
 %\include{chapters/somechapter}
 \end{document}
