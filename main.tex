@@ -10,7 +10,6 @@
 \subtitle{A study on Staphylococcus Aureus, its prevalence, clinical possibilities and our fighting tools}
 \author{Mar Roca Cugat}
 \date{Version 2.13.23}
-\addbibresource{references.bib}
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \begin{document}
 \maketitle
@@ -25,6 +24,11 @@ I would like to thank Margarita Martinez, professor at the \emph{Universitat de 
 I would also like to acknowledge the magnificent work that the \LaTeX\ community does to give the scientific community an incredible piece of software with which to write, as well as to Mark Olson for making his \KOMAScript\ \TeX\ template open source, allowing anyone and everyone to use it and modify it for free. On that note, I'd also like to thank my friend Gabriela, for helping me fix a weird issue with the bibliography system.\newline
 But most importantly, I'd like to thank Núria Feliu, Imma Garcia and the rest of the science department for their monumental help which without this project could not have existed; as well as the subjects who volunteered to get their samples taken for this research.\newline
 \end{center}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
+\chapter{Ethical considerations (position TBD)}
+\paragraph{}This study requires taking samples from live human subjects. This is a one-off sampling process: they are required only once. The results are then communicated to the subjects via e-mail or by being delivered a physical piece of paper. They are informed previously on the process they are going to go through, as well as the purpose of the experiment. Each subject must read and agree to two documents: an informed consent which explains everything about the experiment\footnote{Can be found at https://biblio.peiphy.xyz/TDR-IC.pdf} and a GDPR notice which documents the use of their data as well as an expected timeline for data anonymisation and destruction\footnote{Can be found at https://biblio.peiphy.xyz/GDPR-notice.pdf}. All participants were screened to be over the age of 16, in order to ease the process and require no previous authorisation by parental figures on data collection. The experimentation followed has no effect on the subjects, and they were monitored during the process in order for them not to feel any kind of stress.
+\paragraph{}Since bacteria were used, some aspects of the experiment must be clarified and discussed. Previously to starting the experiment, I read profusely the WHO's Laboratory Biosafety Manual and Associated Monographs (4th Edition) as to mitigate any possible risk. During the experimentation there were 0 accidents or incidents. All plates were accounted for and controlled closely. No person other than me was allowed to come in contact with a plate that had been cultivated or with the used cotton swabs that were in the process of being disinfected. The cultivated plates were considered Biosecurity Level 2. All possibly infected material was disposed of taking into account the risks that the bacteria in question posed, using bleach.
+\paragraph{}Before starting the experimentation, I had an interview with my coordinator in order to solidify the fact that there was no alternative to taking cutaneous samples from human beings, as well as a discussion on bacteria and the risks that this experiment implies.
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \chapter{Abstract}
 \paragraph{}Insert abstract here
@@ -44,11 +48,12 @@ But most importantly, I'd like to thank Núria Feliu, Imma Garcia and the rest o
 % > > > What is LaTeX
 %\include{chapters/chapter06}
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
-\backmatter\renewcommand{\thepage}{\Roman{page}}\setcounter{page}{0}
-
-\clearpage
+\backmatter
+\renewcommand{\thepage}{\Roman{page}}\setcounter{page}{0}
+\clearpage\chapter{References}
 \printbibliography[title={References}]
-\cleardoublepage\part{Appendix}\appendix
+\renewcommand{\thepage}{\Roman{page}}\setcounter{page}{1}
+\part{Appendix}\appendix
 \chapter{Annex 1 - Protocol as published in protocols.io}
 \includepdf[pages=-]{protocol.pdf}
 \clearpage\appendix\chapter{Annex 2 - Raw data table (data anonimised)}
