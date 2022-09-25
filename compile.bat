@@ -1,1 +1,1 @@
-lualatex main && biber main && lualatex main && lualatex main
+lualatex main && biber main && lualatex main && lualatex main && git add main.pdf && git commit -m "New compilation"
