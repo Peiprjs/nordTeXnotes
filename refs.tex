@@ -1,16 +1,14 @@
-\documentclass[british]{article}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{babel}
-\usepackage{csquotes}
-\usepackage{gentium}
-
-
-\usepackage[style=authoryear, sorting=ydnt, backend=biber]{biblatex}
-
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
+\PassOptionsToPackage{sorting=none}{biblatex}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
+\documentclass[fontsize=12pt,twoside=semi,openright,numbers=noenddot,parskip=half]{scrbook}
+\usepackage{scrhack}\usepackage{mhotext}\usepackage{notoccite,citeall,setspace}\usepackage[T1]{fontenc}\usepackage[UKenglish]{babel}\usepackage{gentium}
+\usepackage{biblatex}[sorting=none,backend=biber,style=apa,citestyle=numeric-comp]
+\onehalfspacing
 \addbibresource{references.bib}
-
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \begin{document}
-\nocite{*}
-\printbibliography
+\chapter{test}
+\citeall
+\printbibliography[title={Works referenced}]
 \end{document}
