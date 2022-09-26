@@ -2,14 +2,14 @@
 \PassOptionsToPackage{sorting=none}{biblatex}
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \documentclass[fontsize=12pt,twoside=semi,openright,numbers=noenddot,parskip=half]{scrbook}
-\usepackage{scrhack}\usepackage{mhotext}\usepackage{geometry, graphicx, adjustbox, wrapfig, mathtools, booktabs, siunitx, setspace, subcaption, booktabs,multicol,dirtree,notoccite,xcolor,pifont,float}\usepackage[T1]{fontenc}\usepackage[UKenglish]{babel}\usepackage{gentium}
+\usepackage{scrhack}\usepackage{mhotext}\usepackage{epigraph, geometry, graphicx, adjustbox, wrapfig, mathtools, booktabs, siunitx, setspace, subcaption, booktabs,multicol,dirtree,notoccite,xcolor,pifont,float}\usepackage[T1]{fontenc}\usepackage[UKenglish]{babel}\usepackage{gentium}
 \usepackage{biblatex}[sorting=none,backend=biber,style=apa,citestyle=numeric-comp]\usepackage{pdfpages}\usepackage{enumitem}
 \graphicspath{{./assets/}}\onehalfspacing
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \title{The Tale of a Bacteria Battle}
 \subtitle{A study on Staphylococcus Aureus, its prevalence, clinical possibilities and our fighting tools}
-\author{Mar Roca Cugat}
-\date{Version 2.13.23}
+\author{Mar Roca Cugat.}
+\date{Final draft}
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \begin{document}
 \maketitle
@@ -30,6 +30,10 @@ But most importantly, I'd like to thank Núria Feliu, Imma Garcia and the rest o
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \mainmatter\printindex\tableofcontents
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
+\chapter*{Research context}
+This research project will study the effects of \emph{Staphylococcus Aureus} on the human body, as well as the ways humanity has developed to defeat it. Experimentally, the goal is to find the prevalence amongst the students in the school and recreate virtually a virus used to defeat this bacteria. \newline
+The investigation question is ``\emph{What is the prevalence of} Staphylococcus Aureus\emph{in the high school?}``
+%----------------------------------------------------------------------------------------------------------------------------------------------------------%
 % > > > Introduction
 \include{chapters/chapter01}
 % > > > Experimental, round 1
@@ -37,7 +41,7 @@ But most importantly, I'd like to thank Núria Feliu, Imma Garcia and the rest o
 % > > > Experimental, round 2
 %\include{chapters/chapter03}
 % > > > Theorem Environments
-%\include{chapters/chapter04}
+\include{chapters/chapter04}
 % > > > Works Cited
 %\include{chapters/chapter05}
 % > > > What is LaTeX
@@ -53,6 +57,6 @@ But most importantly, I'd like to thank Núria Feliu, Imma Garcia and the rest o
 \includepdf[pages=-]{protocol.pdf}
 \clearpage\appendix\chapter{Annex 2 - Raw data table (data anonimised)}
 \includepdf[pages=-]{data.pdf}
-\chapter{Annex 3 - Bibliography read}
+\chapter{Annex 3 - Bibliography consulted}
 %\include{chapters/somechapter}
 \end{document}
