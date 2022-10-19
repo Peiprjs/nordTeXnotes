@@ -2,15 +2,12 @@
 \PassOptionsToPackage{style=authoryear,sorting=ynt,backend=biber}{biblatex}
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \documentclass[fontsize=12pt,twoside=semi,openright,numbers=noenddot,parskip=half]{scrbook}
-\usepackage{scrhack}\usepackage{mhotext}\usepackage{notoccite,citeall,setspace}\usepackage[T1]{fontenc}\usepackage[UKenglish]{babel}\usepackage{gentium}
-\usepackage{biblatex}
+\usepackage{scrhack}\usepackage{mhotext}\usepackage{notoccite,citeall,setspace}\usepackage[T1]{fontenc}\usepackage[UKenglish]{babel}\usepackage{gentium}\usepackage{biblatex}\usepackage{nopageno}
 \onehalfspacing
 \addbibresource{references.bib}
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \begin{document}
 \chapter{test}
 \citeall
-
-\renewcommand{\thepage}{\Roman{page}}\setcounter{page}{16}
 \printbibliography[title={Works referenced}]
 \end{document}
