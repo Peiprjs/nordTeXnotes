@@ -7,12 +7,15 @@
 \paragraph{}This second experiment looks at computing the shape of a \emph{Staphylococcus aureus} P-68 bacteriophage starting from its DNA sequence. This will analyse the process of protein translation, as well as looking at the process of using AlphaFold\cite{jumperHighlyAccurateProtein2021}. To compute the secondary, tertiary and quaternary structures of the proteic parts of the virus we will use the Google CoLaboratory version of AlphaFold\cite{GoogleColaboratoryAlpha1970}, as it allows for far more computer power than available on a simple laptop.
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \section{Protocol followed}
+The protocol followed is very simple, as AlphaFold, the Artificial Intelligence model used does the hardest part of the work for us:
 \begin{enumerate}[label=\arabic*)]
-\item Convert the DNA sequence of one of the proteins to an mRNA sequence.
-\item Convert the mRNA sequence to an aminoacid sequence of one of the proteins.
-\item Repeat for all the proteins that conform the virus.
-\item Assemble the bacteriophage.
+\item Convert the DNA sequence of one of the proteins to an mRNA sequence, by taking into account the fact that there's base complimentariety.
+\item Convert the mRNA sequence to an aminoacid sequence of the proteins by using the genetic universal code table.
+\item Feed the aminoacid sequences to AlphaFold, obtain the models for each protein.
+\item Assemble the bacteriophage. 
+\item Print, polish and paint a 3D physical model of the bacteriophage to illustrate better how it functions.
 \end{enumerate}
+The AlphaFold Jupiter notebook (can be found in 
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \section{Results and analysis}
-[Model was erroneous]
+
