@@ -5,7 +5,7 @@
 \usepackage{scrhack}\usepackage{mhotext}\usepackage{epigraph, geometry, graphicx, adjustbox, wrapfig, mathtools, booktabs, siunitx, setspace, subcaption, booktabs,multicol,dirtree,notoccite,xcolor,pifont,float}\usepackage[T1]{fontenc}\usepackage[UKenglish]{babel}\usepackage{gentium}
 \usepackage{biblatex}[sorting=none,backend=biber,style=apa,citestyle=numeric-comp]\usepackage{pdfpages}\usepackage{enumitem}
 \graphicspath{{./assets/}}\onehalfspacing
-\addbibresource{references.bib}
+\addbibresource{references.bib}\sisetup{math-micro=\text{µ},text-micro=µ}
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 %\ihead{\leftmark}
 %\chead{||Mar Roca Cugat||}
@@ -14,8 +14,8 @@
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \title{The Tale of a Bacteria Battle}
 \subtitle{A study on \emph{Staphylococcus aureus}, its prevalence, clinical possibilities and our fighting tools}
-\author{Mar Roca Cugat}	
-\date{Final draft}
+\author{Mar Roca Cugat - 2n Batxillerat A}
+\date{Tutora: Núria Feliu Pou - Departament de Llengües Estrangeres - Ins. JVV}
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \begin{document}
 \maketitle
@@ -27,12 +27,12 @@
 \chapter{Acknowledgements}
 \begin{center}
 I would like to thank Margarita Martinez, professor at the \emph{Universitat de Girona}'s Microbiology Department, as well as Olga Sánchez, professor and researcher at the \emph{Universitat Autònoma de Barcelona}'s Department of Genetics and Microbiology for their help with certain aspects of this project. \newline
-I would also like to acknowledge the magnificent work that the \LaTeX\ community does to give the scientific community an incredible piece of software with which to write, as well as to Mark Olson for making his \KOMAScript\ \TeX\ template open source, allowing anyone and everyone to use it and modify it for free. On that note, I'd also like to thank my friend Gabriela, for helping me fix a weird issue with the bibliography system.\newline
-But most importantly, I'd like to thank Núria Feliu, Imma Garcia and the rest of the science department for their monumental help which without this project could not have existed; as well as the subjects who volunteered to get their samples taken for this research.\newline
+I would also like to acknowledge the magnificent work that the \LaTeX\ community does to give the scientific community an incredible piece of software with which to write, as well as to Mark Olson for making his \KOMAScript\ \TeX\ template open source, allowing anyone and everyone to use it and modify it for free. On that note, I'd also like to thank my friend, Gabriela, for helping me fix a weird issue with the bibliography system.\newline
+But most importantly, I'd like to thank Núria Feliu, Imma Garcia and the rest of the science department for their monumental help which, without, this project could not have existed; as well as the subjects who volunteered to get their samples taken for this research.\newline
 \end{center}
 %----------------------------------------------------------------------------------------------------------------------------------------------------------%
 \mainmatter\printindex\tableofcontents
-%----------------------------------------------------------------------------------------------------------------------------------------------------------%
+%---------------------------------------------------------------------------------------------------------------------------------------------------------%
 % > > > Introduction
 \include{chapters/intro}
 % > > > Introduction
@@ -53,14 +53,12 @@ But most importantly, I'd like to thank Núria Feliu, Imma Garcia and the rest o
 \clearpage
 \printbibliography[title={Works referenced}]
 \part{Appendix}\appendix
-\chapter{Annex 1 - Informed consent given to subjects before sampling}
+\chapter{Annex 1 – Informed consent given to subjects before sampling}
 \includepdf[pages=-]{consent.pdf}
-\clearpage\appendix\chapter{Annex 2 - GDPR notice given to subjects before sampling}
+\clearpage\appendix\chapter{Annex 2 – GDPR notice given to subjects before sampling}
 \includepdf[pages=-]{gdpr.pdf}
-\chapter{Annex 3 - Protocol as published in protocols.io}
+\chapter{Annex 3 – Protocol as published in protocols.io}
 \includepdf[pages=-]{protocol.pdf}
-\clearpage\appendix\chapter{Annex 4 - Raw data table (data anonimised)}
-\includepdf[pages=-]{data.pdf}
-\chapter{Annex 5 - Bibliography consulted}
-\includepdf[pages=5-last]{refs.pdf}
+\chapter{Annex 4 – Bibliography consulted (not referenced)}
+\includepdf[pages=4-last]{refs.pdf}
 \end{document}
